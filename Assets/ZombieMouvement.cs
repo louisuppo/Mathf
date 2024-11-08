@@ -10,10 +10,10 @@ public class ZombieMouvement : MonoBehaviour
 
     void Update()
     {
-        float opposite = (flics.transform.rotation.y - transform.rotation.y);
-        float adjacent = (flics.transform.rotation.x - transform.rotation.x);
+        float opposite = (flics.transform.position.x - transform.position.x);
+        float adjacent = (flics.transform.position.y - transform.position.y);
 
-        alpha = Mathf.Atan2(opposite, adjacent) * (180 / Mathf.PI);
+        alpha = 180 - Mathf.Atan2(opposite, adjacent) * (180 / Mathf.PI);
 
 
         transform.rotation  = Quaternion.Euler(0f , 0f, alpha);
