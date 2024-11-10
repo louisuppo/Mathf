@@ -30,8 +30,8 @@ public class SpaceShip : MonoBehaviour
         float distance = ((tempMousePos.x - Input.mousePosition.x) * (tempMousePos.x - Input.mousePosition.x) + (tempMousePos.y - Input.mousePosition.y) * (tempMousePos.y - Input.mousePosition.y));
         alpha = 180 - Mathf.Atan2(opposite, adjacent) * (180 / Mathf.PI);
 
-        //ya unblem ici faut régler distance face au truc
-        if ((distance<1 && mousePos != tempMousePos))
+        //il y a un probleme ici, faut que le vaiseau continue sa route si la souris na pas bouger
+        if ((distance>1f))
         {
             transform.rotation = Quaternion.Euler(0f, 0f, alpha);
 
@@ -39,7 +39,7 @@ public class SpaceShip : MonoBehaviour
 
 
 
-        //Déplacement
+        //Dï¿½placement
         transform.position += -transform.up * speed.x;
         Debug.Log(speed);
 
@@ -49,16 +49,25 @@ public class SpaceShip : MonoBehaviour
         }
 
 
-        //TP screensize
-        if (transform.position.x > screenSize.x - 5 || transform.position.x < -screenSize.x - 5)
+        // Screen wrapping
+        if (transform.position.x > screenSize.x / 2)
         {
-            transform.position = new Vector3(screenSize.x - 30, 0f, 0f);
+            transform.position = new Vector3(-screenSize.x / 2, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.x < -screenSize.x / 2)
+        {
+            transform.position = new Vector3(screenSize.x / 2, transform.position.y, transform.position.z);
         }
 
-        if (transform.position.y > screenSize.y - 5 || transform.position.y < -screenSize.y - 5)
+        if (transform.position.y > screenSize.y / 2)
         {
-            transform.position = new Vector3(0f, screenSize.x - 15, 0f);
+            transform.position = new Vector3(transform.position.x, -screenSize.y / 2, transform.position.z);
         }
+        else if (transform.position.y < -screenSize.y / 2)
+        {
+            transform.position = new Vector3(transform.position.x, screenSize.y / 2, transform.position.z);
+        }
+
          tempMousePos = Input.mousePosition;
     }
 }
