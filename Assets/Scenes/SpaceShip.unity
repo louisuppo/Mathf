@@ -243,6 +243,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 143799988}
     - target: {fileID: 7240506994102980702, guid: 36d91492a3e004343a80e1be18cde858, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 5792382578915420008, guid: 465c32aec7007744f9d2525be4d83866, type: 3}
+    - target: {fileID: 7240506994102980702, guid: 36d91492a3e004343a80e1be18cde858, type: 3}
       propertyPath: radius
       value: 1
       objectReference: {fileID: 0}

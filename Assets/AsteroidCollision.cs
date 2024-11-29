@@ -5,26 +5,32 @@ using UnityEngine;
 public class AsteroidCollision : MonoBehaviour
 {
     public SpaceShip ship;
-    private Vector2 difference;
+    private Vector2 diff;
     private float SquareDistance;
     public float radius;
 
-    public GameObject bullet;
-    private Vector2 differenceB;
+    public float distanceB;
+    private Vector2 diffB;
+
 
     private void Update()
     {
-        difference = ship.transform.position - transform.position;
-        SquareDistance = (difference.x * difference.x) + (difference.y * difference.y);
+        diff = ship.transform.position - transform.position;
+        SquareDistance = (diff.x * diff.x) + (diff.y * diff.y);
         if (ship && SquareDistance < ((ship.radius + radius) * (ship.radius + radius)))
         {
             ship.gameObject.SetActive(false);
+
         }
 
-        differenceB = bullet.transform.position - transform.position;
-        if (differenceB > radius)
+        diffB = ship.GetBulletPosition() - transform.position;
+        distanceB = diffB.sqrMagnitude;
+        if (distanceB < radius*radius)
         {
-            Asteroid.GetDestroyed();
+            //destroye la bullete
+            //victoire si tous detrui
+          //faire que ca fasse la fonction de splite
+            Debug.Log("fdss");
         }
 
     }

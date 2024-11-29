@@ -22,8 +22,10 @@ public class SpaceShip : MonoBehaviour
 
     public Transform bulletSpawnPoint;
     public GameObject bulletPrefab;
+
     public float bulletSpeed = 10f;
 
+    private GameObject bulletShot;
     private bool canShoot = true;
 
     private void Start()
@@ -95,13 +97,22 @@ public class SpaceShip : MonoBehaviour
 
     }
 
+    public Vector3 GetBulletPosition()
+    {
+        if (bulletShot)
+        {
+            return bulletShot.transform.position;
+        }
+        return Vector3.positiveInfinity;
+    }
+
     void projectileShot()
     {
         // Cr�er le projectile
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-
+        bulletShot = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        Destroy(bulletShot, 1.0f);
         // R�cup�rer le Rigidbody2D du projectile et lui appliquer la vitesse
-        Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+        Rigidbody2D bulletRb = bulletShot.GetComponent<Rigidbody2D>();
         if (bulletRb != null)
         {
             bulletRb.velocity = -bulletSpawnPoint.up * bulletSpeed;
