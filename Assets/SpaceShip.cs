@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UIElements;
 using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
@@ -14,6 +16,15 @@ public class SpaceShip : MonoBehaviour
     public float alpha;
 
     private Vector3 tempMousePos;
+
+    public float radius;
+
+
+    public Transform bulletSpawnPoint;
+    public GameObject bulletPrefab;
+    public float bulletSpeed = 10f;
+
+    private bool canShoot = true;
 
     private void Start()
     {
@@ -69,5 +80,42 @@ public class SpaceShip : MonoBehaviour
         }
 
          tempMousePos = Input.mousePosition;
+
+
+        if (Input.GetKey(KeyCode.Space) && canShoot)
+        {
+            projectileShot();
+            canShoot = false;
+            Invoke("Cooldown", 1f);
+            if (GetComponent<SpriteRenderer>().enabled == false)
+                SceneManager.LoadScene(0);
+
+        }
+
+
+    }
+
+    void projectileShot()
+    {
+        // Cr�er le projectile
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+
+        // R�cup�rer le Rigidbody2D du projectile et lui appliquer la vitesse
+        Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+        if (bulletRb != null)
+        {
+            bulletRb.velocity = -bulletSpawnPoint.up * bulletSpeed;
+        }
+    }
+
+    void Cooldown()
+    {
+        canShoot = true;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }
