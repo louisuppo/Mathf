@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e3430641bda394cad3eb16a473f340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.5
+  speed: 2
   radius: 1
   AsteroidMEDIUM: {fileID: 8414457827931166199}
   AsteroidSMALL: {fileID: 8856068769260251926, guid: 5c4ae9ac375bb8b429eb2f8f7bd41fb1, type: 3}
@@ -115,3 +115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3040fb55471a94e8a0ab830be30cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ship: {fileID: 0}
+  radius: 0.5
+  distanceB: 0

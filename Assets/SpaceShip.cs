@@ -8,6 +8,8 @@ using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class SpaceShip : MonoBehaviour
 {
+    public static int ScoreAste;
+    public int NombreDeGrosAsteroides;
     Vector2 speed;
     public float accel;
 
@@ -25,16 +27,22 @@ public class SpaceShip : MonoBehaviour
 
     public float bulletSpeed = 10f;
 
-    private GameObject bulletShot;
+    public GameObject bulletShot;
     private bool canShoot = true;
 
     private void Start()
     {
         screenSize = Camera.main.ViewportToWorldPoint(Vector2.one) - Camera.main.ViewportToWorldPoint(Vector2.zero);
         tempMousePos = Input.mousePosition;
+        NombreDeGrosAsteroides *= 5;
     }
     void Update()
     {
+
+        if (NombreDeGrosAsteroides == ScoreAste)
+        {
+            Debug.Log("VICTOIRE !");
+        }
         //Rotation ship
         Vector3 mousePos = Input.mousePosition;
 
@@ -115,7 +123,7 @@ public class SpaceShip : MonoBehaviour
         Rigidbody2D bulletRb = bulletShot.GetComponent<Rigidbody2D>();
         if (bulletRb != null)
         {
-            bulletRb.velocity = -bulletSpawnPoint.up * bulletSpeed;
+            bulletRb.velocity = bulletSpawnPoint.up * bulletSpeed;
         }
     }
 

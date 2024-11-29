@@ -31,35 +31,31 @@ public class Asteroid : MonoBehaviour
         transform.position += transform.up * speed * Time.deltaTime;
 
         //SCREEN WARPE
-        if (transform.position.x > screenSize.x / 2)
+        float halfWidth = screenSize.x / 2 + radius;
+        float halfHeight = screenSize.y / 2 + radius;
+
+        if (transform.position.x > halfWidth)
         {
-            transform.position = new Vector3(-screenSize.x / 2, transform.position.y, transform.position.z);
+            transform.position = new Vector3(-halfWidth, transform.position.y, transform.position.z);
         }
-        else if (transform.position.x < -screenSize.x / 2)
+        else if (transform.position.x < -halfWidth)
         {
-            transform.position = new Vector3(screenSize.x / 2, transform.position.y, transform.position.z);
+            transform.position = new Vector3(halfWidth, transform.position.y, transform.position.z);
         }
 
-        if (transform.position.y > screenSize.y / 2)
+        if (transform.position.y > halfHeight)
         {
-            transform.position = new Vector3(transform.position.x, -screenSize.y / 2, transform.position.z);
+            transform.position = new Vector3(transform.position.x, -halfHeight, transform.position.z);
         }
-        else if (transform.position.y < -screenSize.y / 2)
+        else if (transform.position.y < -halfHeight)
         {
-            transform.position = new Vector3(transform.position.x, screenSize.y / 2, transform.position.z);
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log("PRESS");
-
-            GetDestroyed();
+            transform.position = new Vector3(transform.position.x, halfHeight, transform.position.z);
         }
     }
 
 
 
-    void GetDestroyed()
+    public void GetDestroyed()
     {
 
         Debug.Log("oUI");
@@ -69,8 +65,6 @@ public class Asteroid : MonoBehaviour
             asteroid = AsteroidMEDIUM;
         else if (currentSize == AsteroidSize.Medium)
             asteroid = AsteroidSMALL;
-        if (asteroid != null) Destroy(asteroid);
-
         if (asteroid != null)
         {
             Instantiate(asteroid, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 359)));
