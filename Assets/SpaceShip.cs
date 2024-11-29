@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
@@ -30,18 +32,22 @@ public class SpaceShip : MonoBehaviour
     public GameObject bulletShot;
     private bool canShoot = true;
 
+    public TextMeshPro text;
+
     private void Start()
     {
         screenSize = Camera.main.ViewportToWorldPoint(Vector2.one) - Camera.main.ViewportToWorldPoint(Vector2.zero);
         tempMousePos = Input.mousePosition;
-        NombreDeGrosAsteroides *= 5;
+        NombreDeGrosAsteroides *= 7;
     }
     void Update()
     {
+        Debug.Log(ScoreAste);
 
         if (NombreDeGrosAsteroides == ScoreAste)
         {
             Debug.Log("VICTOIRE !");
+            text.gameObject.SetActive(true);
         }
         //Rotation ship
         Vector3 mousePos = Input.mousePosition;
